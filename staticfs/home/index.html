@@ -3,40 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>lion</title>
-    <!--<script src="../thirdparty/jquery/jquery.min.js"></script>-->
-    <style>
-        .rotateCicle{
-            display:inline-block;
-            width:40px;
-            height:40px;
-            border:3px solid #ff1493;
-            border-radius:50%;
-            background: #fff;
-        }
-    </style>
-
+    <link href="../css/font-awesome.min.css" type="text/css" rel="stylesheet" media="all">
+    <link href="../css/bootstrap.min.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
 </head>
 <body>
+    <nav class="navbar navbar-default navbar-static-top divnav">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2">
+                    <img src="../img/logo.png" class="logo">
+                </div>
+                <div class="col-lg-6 col-lg-offset-3">
+                    <ul class="row navtitle">
+                        <li class="col-lg-3 col-lg-offset-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control search-text" placeholder="search" aria-describedby="basic-addon1">
+                                <span class="input-group-addon" id="search"><i class="fa fa-search"></i></span>
+                            </div>
+
+                        </li>
+                        <li class="col-lg-1 marginleft"><a href="#">首页</a></li>
+                        <li class="col-lg-1"><a href="#">博客</a></li>
+                        <li class="col-lg-1"><a href="#">资料</a></li>
+                        <li class="col-lg-2"><a href="#">关于我们</a></li>
+                        <li class="openmenu">
+                            <a class=""><i class="fa fa-bars"></i></a>
+                            <ul class="list-group menu">
+                                <li class="list-group-item"><a href="#">登录</a></li>
+                                <li class="list-group-item"><a href="#">简历</a></li>
+                                <li class="list-group-item"><a href="#">生活专题</a></li>
+                                <li class="list-group-item"><a href="#">...</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <!--Guide-->
+            <div class="col-lg-12 col-sm-12 col-md-12 guide">
+                <div class="logo"></div>
+                <div class="nav"></div>
+            </div>
+            <!--Greet-->
+            <div></div>
+            <div></div>
+            <!--Huge-->
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="jumbotron">
+                    <h1> About Us<small> ...</small></h1>
+                    <p>...</p>
+                    <p><a class="fa fa-github-alt fa-6" href="#"></a><a class="fa fa-codepen fa-6" href="#"></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--小动画demo-->
     <div style="background: #eee;width:500px;height:500px;padding:100px;">
         <span class="rotateCicle" id="rotateCicle"></span>
     </div>
-
+    <!--<script src="../thirdparty/requireJS/require.js" type="text/javascript"></script>-->
+    <!--<script src="../thirdparty/config/config.js" type="text/javascript"></script>-->
+    <script src="../thirdparty/jquery/jquery.min.js"></script>
     <script src="../thirdparty/mojs-master/build/mo.min.js"></script>
-    <script type="text/javascript">
-            var circle = document.querySelector('#rotateCicle');
-            //动画svg路径
-            var bouncyEasing = mojs.easing.path('M0,100 C6.50461245,96.8525391 12.6278439,88.3497543 16.6678547,0 C16.6678547,-1.79459817 31.6478577,115.871587 44.1008572,0 C44.1008572,-0.762447191 54.8688736,57.613472 63.0182497,0 C63.0182497,-0.96434046 70.1500549,29.0348701 76.4643231,0 C76.4643231,0 81.9085007,16.5050125 85.8902733,0 C85.8902733,-0.762447191 89.4362183,8.93311024 92.132216,0 C92.132216,-0.156767385 95.0157166,4.59766248 96.918051,0 C96.918051,-0.156767385 98.7040751,1.93815588 100,0');
-
-            new mojs.Tween({
-                repeat:   2,  //d动画重复次数
-                delay:    2000,  //动画重复间隔时间
-                duration: 1500,  //动画持续时间
-                onUpdate: function (progress) {
-                    var bounceProgress = bouncyEasing(progress);
-                    circle.style.transform = 'translateY(' + 200*bounceProgress + 'px)';
-                }
-            }).run();
-    </script>
+    <script src="js/main.js" type="text/javascript"></script>
 </body>
 </html>
