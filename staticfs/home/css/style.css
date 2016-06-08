@@ -47,6 +47,9 @@ a:hover{
     padding:0;
     /*text-align: right;*/
 }
+.bottom-nav{
+    font-size:14px;
+}
 #search{
     background: #fff;
 }
