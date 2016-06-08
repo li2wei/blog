@@ -13,12 +13,16 @@ a{
     padding:5px;
 }
 a:hover{
-    color:#c4e3f3;
+    color:#fff;
     background: #5cb85c;
 }
-.row div[class~=col]{
-    margin:0;
+i.fa{
+    cursor:pointer;
 }
+/*top nav*/
+/*.row div[class^=col]{*/
+    /*margin:0;*/
+/*}*/
 .rotateCicle{
     display:inline-block;
     width:40px;
@@ -45,35 +49,193 @@ a:hover{
 }
 .navtitle li{
     padding:0;
-    /*text-align: right;*/
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
-.bottom-nav{
-    font-size:14px;
+.navtitle .texthover:hover {
+    border:2px solid #fff;
+    margin-top:-2px;
+    border-radius:3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius:3px;
+    background: #4cae4c;
+}
+.navtitle .texthover:hover a{
+    text-decoration: none;
+    background: #4cae4c;
+    color:#fff;
+}
+.large{
+    width:6em;
 }
 #search{
     background: #fff;
 }
 .search-text{
     border-right:none;
-    /*text-decoration: none;*/
+     /*text-decoration: none;*/
+}
+.search-text:focus{
+    outline:none;
 }
 .marginleft{
-    margin-left:1em;
+    margin-left:2em;
 }
 .openmenu{
     position:relative;
+    /*margin-right:-1em;*/
 }
 .menu{
     position:absolute;
     top:55px;
     right:15px;
     display: none;
+    width:7.7em;
     /*background:#5cb85c;*/
 }
 .menu li{
     background:#5cb85c;
     border:none;
     font-size:14px;
-    padding:0 1em;
+    /*padding:0 2em;*/
     text-align: center;
+}
+.menu li:hover,.menu li:hover a{
+    background: #4cae4c;
+    color:#fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+/*bottom nav*/
+.bottom-nav{
+    font-size:14px;
+    margin-top:10px;
+}
+.bottom-nav [class='col-lg-1']{
+    padding:0px;
+    margin: 0 1em;
+    text-align: center;
+    /*width:9.5%;*/
+}
+.contact{
+    padding:0;
+}
+.contact a{
+    padding:0;
+    margin-right:0.9em;
+}
+.contact i{
+    padding:5px;
+    color:#67b168;
+    background: rgba(255,255,255,0.6);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    font-size:2em;
+    /*height:1.3em;*/
+    /*width:1.3em ;*/
+    text-align: center;
+    margin-top: 15px;
+    -webkit-transition: ease 0.3s;
+    -moz-transition: ease 0.3s;
+    -ms-transition: ease 0.3s;
+    -o-transition: ease 0.3s;
+    transition: ease 0.3s;
+}
+.contact i:hover{
+    background: #fff;
+}
+.copyright{
+    color:rgba(255,255,255,0.8);
+    padding-left: 20px;
+    /*font-size: ;*/
+}
+/*pannel*/
+.pannel{
+    position: fixed;
+    right:3%;
+    top:50%;
+    width:5%;
+    background:#eee;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    /*overflow: hidden;*/
+    /*-webkit-box-shadow: 0 0 5px #ccc inset,0 0 6px #666;*/
+    /*-moz-box-shadow: 0 0 5px #ccc inset,0 0 6px #666;*/
+    /*box-shadow: 0 0 5px #ccc inset,0 0 6px #666;*/
+}
+.pannel [class^='col-']{
+    padding:0;
+}
+.pannel i{
+    width:100%;
+    font-size:3em;
+    text-align: center;
+}
+.pannel a{
+
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    -webkit-transition: ease-in 0.2s;
+    -moz-transition: ease-in 0.2s;
+    -ms-transition: ease-in 0.2s;
+    -o-transition: ease-in 0.2s;
+    transition: ease-in 0.2s;
+}
+.pannel .like{
+    border-bottom:2px solid #fff;
+    border-top:2px solid #fff;
+}
+.pannel .like a{
+    padding:5px 0;
+}
+.like .fa{
+    font-size:2.5em;
+}
+.onlike{
+    background: #f2dede;
+}
+.onlike i{
+    color:#cb4b16;
+}
+.onlike:hover{
+    background: #e4b9b9;
+}
+.pannel .weixin{
+    position: relative;
+}
+.pannel .weixin:hover .barcode{
+    width:8em;
+    height: 8em;
+    /*-webkit-transform-origin:bottom right;*/
+    /*-moz-transform-origin:bottom right;*/
+    /*-ms-transform-origin:bottom right;*/
+    /*-o-transform-origin:bottom right;*/
+    /*transform-origin:bottom right;*/
+}
+.barcode{
+    position:absolute;
+    /*left:-9em;*/
+    right:6em;
+    bottom:0.5em;
+    width: 0;
+    height:0;
+    z-index:99;
+    background: #5cb85c;
+    overflow: hidden;
+    -webkit-transition: ease 0.1s;
+    -moz-transition: ease 0.1s;
+    -ms-transition: ease 0.1s;
+    -o-transition: ease 0.1s;
+    transition: ease 0.1s;
+}
+.barcode img{
+    width:8em;
+    height:8em;
 }
