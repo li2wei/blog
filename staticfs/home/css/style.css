@@ -83,6 +83,10 @@ i.fa{
 .marginleft{
     margin-left:2em;
 }
+.padding-top-bottom{
+    padding-top:1em;
+    padding-bottom:1em;
+}
 .openmenu{
     position:relative;
     /*margin-right:-1em;*/
@@ -121,6 +125,9 @@ i.fa{
     text-align: center;
     /*width:9.5%;*/
 }
+/*.bottom-nav a:hover{*/
+    /*text-decoration: none;*/
+/*}*/
 .contact{
     padding:0;
 }
@@ -164,6 +171,7 @@ i.fa{
     -webkit-border-radius:10px;
     -moz-border-radius:10px;
     border-radius:10px;
+    z-index:99;
     /*overflow: hidden;*/
     /*-webkit-box-shadow: 0 0 5px #ccc inset,0 0 6px #666;*/
     /*-moz-box-shadow: 0 0 5px #ccc inset,0 0 6px #666;*/
@@ -238,4 +246,90 @@ i.fa{
 .barcode img{
     width:8em;
     height:8em;
+}
+/*main info*/
+.module-title{
+    font-size:2em;
+    color:#5cb85c;
+    text-align: center;
+}
+.blog-module{
+    color:#000;
+}
+.blog-info{
+    margin:10px 0 30px;
+}
+.blog-info > [class^='col-']{
+    width:18%;
+    /*background: #eee;*/
+    margin-left:2.5%;
+    padding:0;
+    border:1px solid #ddd;
+    box-shadow: 0 0 5px #ccc;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    -moz-box-shadow: 0 0 5px #ccc;
+}
+.blog-info > [class^='col-']:hover{
+    cursor: pointer;
+    -webkit-box-shadow:  0 0 10px #666;
+    -moz-box-shadow:  0 0 10px #666;
+    box-shadow:  0 0 10px #666;
+}
+.blog-info [class^='col-']:first-child{
+    margin-left:0;
+}
+.blog-info > [class^='col-'] > div{
+    border:0;
+    margin-bottom:10px;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.blog-info img{
+    background:#4cae4c;
+    margin:0;
+    width:100%;
+    height:15em;
+}
+/*.blog-info img:hover{*/
+    /*!*transform: scale(1.3);*!*/
+/*}*/
+.caption{
+    padding:0 15px;
+}
+.caption p{
+    text-align: center;
+    font-size:16px;
+    margin-bottom:5px;
+}
+.caption span{
+    color:#b4bbbf;
+    font-size:13px;
+}
+.caption i{
+    color:#b4bbbf;
+    float:right;
+    margin-right:0px;
+    margin-top:5px;
+}
+.module-more a{
+    font-size:1em;
+    color:#5cb85c;
+    text-align: center;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:5px 10px;
+    width:6em;
+    opacity:0.7;
+    -webkit-transition: ease 0.1s;
+    -moz-transition: ease 0.1s;
+    -ms-transition: ease 0.1s;
+    -o-transition: ease 0.1s;
+    transition: ease 0.1s;
+}
+.module-more a:hover{
+    color:#fff;
+    text-decoration: none;
+    opacity:1;
 }
