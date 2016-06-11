@@ -1,2 +1,2 @@
 # blog
-our blog
+boss blog
