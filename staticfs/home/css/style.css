@@ -255,8 +255,9 @@ i.fa{
 }
 .blog-module{
     color:#000;
+    margin-top:2em;
 }
-.blog-info{
+.info{
     margin:10px 0 30px;
 }
 .blog-info > [class^='col-']{
@@ -332,4 +333,23 @@ i.fa{
     color:#fff;
     text-decoration: none;
     opacity:1;
+}
+.about-module{
+    color:#000;
+    margin-top:2em;
+}
+.about-info{
+    background: rgba(0,0,0,0.1);
+}
+.left-intro{
+
+}
+.left-intro div:first-child img{
+    /*background: red;*/
+    width:10em;
+    height:10em;
+    border-radius:50%;
+}
+.left-intro div:first-child{
+    border-right:3px dashed #67b168;
 }
