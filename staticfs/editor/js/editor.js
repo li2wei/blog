@@ -28,7 +28,9 @@ require(deps,function (editormd) {
                 imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
                 imageUploadURL: "./php/upload.php",
                 onload: function () {
-                    console.log('onload', this);
+                    var _article = window.localStorage.getItem('article') || '';
+                    // console.log('onload', this);
+                    this.setMarkdown(_article);
                     //this.fullscreen();
                     //this.unwatch();
                     //this.watch().fullscreen();
@@ -88,10 +90,30 @@ require(deps,function (editormd) {
                 tocTitle      : "目录 Table of Contents",
             });
         });
-
         $("#toc-default-btn").click(function() {
             testEditor.config("tocDropdown", false);
         });
+        $("#html-save-btn").click(function () {
+            var _html = testEditor.getHTML();
+            var _mark = testEditor.getMarkdown();
+            var _title = '文章一';
+            var _data = {
+                content:_html,
+                title:_title
+            };
+            localStorage.setItem('article',_mark);
+            $.ajax({
+                url:'http://blog.weshow.site/api/articles',
+                type:'post',
+                data:_data,
+                success:function (data) {
+                    console.log(data);
+                    
+                },error:function () {
+
+                }
+            })
+        })
     });
 
 
