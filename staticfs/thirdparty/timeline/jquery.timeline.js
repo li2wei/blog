@@ -2,18 +2,41 @@
 *插件中的this指向当前jquery对象，并不是一个dom对象
 */
 ;(function($){
-	var defaults = {  //默认属性
-		size:'3',  //每栏显示的默认最大篇数
-		leftCont:$('.leftnav')  //时间轴
-		rightCont:$('.blogs')  //具体内容展示区
-	};
-	var method = {
+	//定义构造函数
+	var BlogTime = function(obj,options){  //默认属性
+		var defaults = {
+			size:'3',  //每栏显示的默认最大篇数
+			leftCont:$('.leftnav'),  //时间轴
+			// rightCont:$('.blogs')  //具体内容展示区
+		}
+		this.obj = obj;		//当前对象
+		this.options = $.extend({},defaults,options);
+		// this.init();
+	}
+	BlogTime.prototype = {
 		init:function(){
-
+			this.judgeTerminal();
 		},
 		judgeTerminal:function(){
 			//web端和移动端不同的展现方式  type类型
-		}
+			// console.log('judge');
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+            var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+            var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+            var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+            var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+            var bIsAndroid = sUserAgent.match(/android/i) == "android";
+            var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+            var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+ 
+            if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+                // location.href = "Mobile/login.html";
+                return 'mobile';
+            } else {
+ 				return 'pc';
+            }
+		},
 		mouseEvent:function(){
 			//主要是滚动
 			//包括懒加载和侧边栏的滚动
@@ -39,7 +62,11 @@
 		}
 	};
 	$.fn.timeline = function(options){
-		options = $.extend({},defaults,options);
-
+		// options = $.extend({},defaults,options);
+		var timeline = new BlogTime(this,options);
+		// return this.each(function(){
+		// 	methods.init();
+		// });
+		return timeline;
 	}
 })(jQuery);
