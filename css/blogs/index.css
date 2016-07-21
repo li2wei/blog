@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.leftnav {
+  position: fixed;
+}
+.blogs {
+  width: 1000px;
+  height: auto;
+  margin: 0 auto;
+  min-width: 1000px;
+  height: 1000px;
+}

@@ -7,6 +7,7 @@
 		var defaults = {
 			size:'3',  //每栏显示的默认最大篇数
 			leftCont:$('.leftnav'),  //时间轴
+			container:$('window')
 			// rightCont:$('.blogs')  //具体内容展示区
 		}
 		this.obj = obj;		//当前对象
@@ -15,7 +16,8 @@
 	}
 	BlogTime.prototype = {
 		init:function(){
-			this.judgeTerminal();
+			this.terminal = this.judgeTerminal();
+			this.mouseEvent();
 		},
 		judgeTerminal:function(){
 			//web端和移动端不同的展现方式  type类型
@@ -40,9 +42,13 @@
 		mouseEvent:function(){
 			//主要是滚动
 			//包括懒加载和侧边栏的滚动
+			this.options.container.on('scroll',function(){
+				console.log('scroll');
+			})
 		},
-		mouseScroll:function(){
+		mouseScroll:function(event){
 			//鼠标滚动事件，判断是否开始进行加载，加载栏数、篇数、包括render、事件绑定
+
 		},
 		monthDetail:function(){
 			//显示当前年／月包含的具体月／日
@@ -59,6 +65,9 @@
 		},
 		blogTemplate:function(template,data){
 			//统一的博客展示模版
+		},
+		redrawTime:function(){
+			//重绘左侧的时间轴
 		}
 	};
 	$.fn.timeline = function(options){
