@@ -3,14 +3,123 @@
 	padding:0;
 	list-style: none;
 }
+body{
+	background: url(../../img/top.jpg) no-repeat fixed;
+	background-size:cover; 
+}
 @length:1000px;
+@r:10px;
+@lineR:2px;
+@blogback:#fff;
+@deltawid:25px;
 .leftnav{
 	position:fixed;
+	left:15%;
+	top:80px;
+	color:#fff;
+	// background:@blogback;
+	.time{
+		display: none;
+	}
+	.isactive{
+		display: block;
+	}
 }
 .blogs{
 	width:@length;
-	height:auto;
 	margin:0 auto;
 	min-width:@length;
 	height:@length;
+	border:1px solid red;
+	position:relative;
+	// overflow: scroll;
+	.line{
+		width:@lineR;
+		height:@length;
+		background-color: #eee;
+		position:absolute;
+		top:0;
+		left:-@lineR;
+		box-shadow: 0 0 2px 0 #eee;
+		-webkit-box-shadow: 0 0 2px 0 #eee;
+		-moz-box-shadow: 0 0 2px 0 #eee;
+		-ms-box-shadow: 0 0 2px 0 #eee;
+		-o-box-shadow: 0 0 2px 0 #eee;
+		span{
+			width:@r*2;
+			height:@r*2;
+			border-radius:50%;
+			position:absolute;
+			left:-@r+@lineR/2;
+			top:80px;
+			background-color: #ccc;
+			box-shadow: 0 0 1px 1px #ccc inset;
+			-webkit-box-shadow: 0 0 1px 1px #ccc inset;
+			-moz-box-shadow: 0 0 1px 1px #ccc inset;
+			-ms-box-shadow: 0 0 1px 1px #ccc inset;
+			-o-box-shadow: 0 0 1px 1px #ccc inset;
+			i{
+				width:@r;
+				height:@r;
+				border-radius: 50%;
+				position:absolute;
+				left:@r/2;
+				top:@r/2;
+				background-color: #aaa;
+				box-shadow: 0 0 1px 1px #ccc ;
+				-webkit-box-shadow: 0 0 1px 1px #ccc ;
+				-moz-box-shadow: 0 0 1px 1px #ccc ;
+				-ms-box-shadow: 0 0 1px 1px #ccc ;
+				-o-box-shadow: 0 0 1px 1px #ccc ;
+			}
+		}
+	}
+	.content{
+		height:auto;
+		overflow: scroll;
+		.daybog{
+			width:350px;
+			height:450px;
+			min-height:90px;
+			background-color: @blogback;
+			border-radius:5px;
+			box-sizing: border-box;
+			padding: 10px;
+			margin-left:@deltawid*2;
+			margin-top:@deltawid*2;
+			position: relative;
+			.thumb{
+				width:100%;
+				height: 72%;
+				img{
+					width:100%;
+					height:100%;
+				}
+			}
+			.info{
+				padding:10px;
+				margin-top:10px;
+				.left{
+					float:left;
+				}
+				.right{
+					float:right;
+				}
+				&:after{
+					clear: both;
+				}
+			}
+			&:before{
+				width:0;
+				height:0;
+				content: '';
+				position:absolute;
+				top:20px;
+				left:-@deltawid;
+				border-right:@deltawid solid @blogback;
+				border-top:@deltawid/1.1 solid transparent;
+				border-bottom:@deltawid/1.1 solid transparent;
+			}
+		}
+	}
 }

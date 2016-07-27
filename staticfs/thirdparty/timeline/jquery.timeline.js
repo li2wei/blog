@@ -7,8 +7,9 @@
 		var defaults = {
 			size:'3',  //每栏显示的默认最大篇数
 			leftCont:$('.leftnav'),  //时间轴
-			container:$('window')
-			// rightCont:$('.blogs')  //具体内容展示区
+			container:$('.content'),
+			template:'<div></div>'
+			rightCont:$('.blogs')  //具体内容展示区
 		}
 		this.obj = obj;		//当前对象
 		this.options = $.extend({},defaults,options);
@@ -56,6 +57,14 @@
 		},
 		loadBlogs:function(){
 			//加载博客
+			var data ={
+				title:'这是第一篇博客',
+				time:'5/04:44',
+				like:'30',
+				read:'1000',
+				thumb:'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'
+			};
+			return data;
 		},
 		renderBlog:function(){
 
@@ -63,8 +72,11 @@
 		blogsEvent:function(){
 			//每篇博客上的事件绑定
 		},
-		blogTemplate:function(template,data){
+		blogTemplate:function(data){
 			//统一的博客展示模版
+			var template = this.options.template;
+			var t = _.template(template,{thumb:data.thumb,title:data.title,time:data.time,read:data.read});
+			this.options.container.append(t);
 		},
 		redrawTime:function(){
 			//重绘左侧的时间轴
@@ -73,9 +85,6 @@
 	$.fn.timeline = function(options){
 		// options = $.extend({},defaults,options);
 		var timeline = new BlogTime(this,options);
-		// return this.each(function(){
-		// 	methods.init();
-		// });
 		return timeline;
 	}
 })(jQuery);
