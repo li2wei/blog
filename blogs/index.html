@@ -44,7 +44,7 @@
 			<span><i></i></span>	
 		</div>
 		<div class="content">
-			<div class="daybog">
+			<!-- <div class="dayblog">
 				<div class="thumb">
 					<img src="../img/top.jpg">
 				</div>
@@ -58,16 +58,36 @@
 						<i>点赞</i>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<div> 
 	<!-- 底部 -->
 		<nav></nav>
 	</div>
+	<script type="text/html" id="dayblog">
+		<div class='dayblog'>
+			<div class='thumb'>
+				<img src=<%=thumb%>
+			</div>
+			<div class='info'>
+				<div class='left'>
+					<p><%=title%></p>
+					<span><%=time%></span>
+				</div>
+			<div class='right'>
+				<p>阅读量:<span><%=read%></span></p>
+				<i>点赞</i>
+			</div>
+		</div>
+	</div>
+	</script>
 	<script type="text/javascript">
-		var t = "<div class='daybog'><div class='thumb'><img src=<%=thumb%>></div><div class='info'><div class='left'><p><%%=title></p><span><%=time%></span></div><div class='right'><p>阅读量:<span><%=read%></span></p><i>点赞</i></div></div></div>"
-		$('.blogs').timeline({template:t}).init();
+		var options ={
+			template:	$('#dayblog').html(),
+			getblogs:'http://blog.weshow.site/api/articles'
+		};
+		$('.blogs').timeline(options).init();
 	</script>
 </body>
 </html>
