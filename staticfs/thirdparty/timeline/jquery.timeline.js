@@ -6,6 +6,7 @@
 	var BlogTime = function(obj,options){  //默认属性
 		var defaults = {
 			size:'3',  //每栏显示的默认最大篇数
+			layzeHeight:100,  //预加载高度
 			leftCont:$('.leftnav'),  //时间轴
 			container:$('.content'),
 			template:'<div></div>',
@@ -46,16 +47,17 @@
 			//包括懒加载和侧边栏的滚动
 			var that = this;
 			$(window).on('scroll',function(){
-				that.scrollFunc();
+				that.scrollEvent();
 			})
 		},
-		scrollFunc:function(event){
+		scrollEvent:function(event){
 			//鼠标滚动事件，判断是否开始进行加载，加载栏数、篇数、包括render、事件绑定(去掉)
-			//事件执行函数
+			//滚动事件执行函数
 			var that = this;
-			if(this.options.getblogs){
-				//获取文章列表
-				this.loadBlogs();
+			if($(window).scrollTop()+$(window).height()+this.options.layzeHeight >$(document).height()){  //预100高度加载
+				if(this.options.getblogs){	
+					this.loadBlogs(); 	//获取文章列表
+				}	
 			}
 
 		},
@@ -66,33 +68,28 @@
 		loadBlogs:function(callback){
 			//加载博客
 			var that = this;
+			var getArticles;
+			function getArticles(data){  //使用jsonp跨域请求数据，需要在ajax请求的外面定义一个函数名与后台返回函数名相同的函数，以对数据进行处理
+				data = JSON.parse(that.base64decode(data));
+				for(var i =0 ;i<data.length;i++){
+					that.blogShows(data[i]);	
+				}
+			}
 			$.ajax({
 				type:'GET',
 				url:that.options.getblogs,
 				crossDomain: true,
-				// dataType:'jsonp',
-				// jsonpCallback:'getArticles',
+				dataType:'jsonp',
+				jsonpCallback:'getArticles',
 				data:null,
-				// contentType: "application/json;utf-8", 
+				contentType: "application/json;utf-8", 
 				success:function(data){
-					// data = JSON.parse(that.base64decode(data));
-					for(var i =0 ;i<data.articles.length;i++){
-						that.blogShows(data.articles[i]);	
-					}
+					getArticles(data);
 				},
 				error:function(error){
 					console.log(error);
 				}
 			});
-			// var data ={
-			// 	title:'这是第一篇博客',
-			// 	time:'5/04:44',
-			// 	like:'30',
-			// 	read:'1000',
-			// 	thumb:'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'
-			// };
-			// that.blogShows(data);
-			// return data;
 		},
 		renderTemplate:function(template,data){  //待优化
 			//自定义模版引擎
@@ -123,6 +120,20 @@
 		},
 		redrawTime:function(){
 			//重绘左侧的时间轴
+		},
+		parseData:function(data){  //data: 2015-09-10 08:24:44
+			//解析数据,包括年、月、日
+			var reg = /\b\d{4}[-]?\d{2}[-]?\d{2}/g;   //获取年月日的正则
+			if(!this.options.Data) this.options.Data ={};  //存放解析后的数据
+			for(var i=0;i<data.length;i++){
+				var _data = data[i];
+			
+				var date = _data.updated_at.match(reg);  //2015-09-10
+				var year = date[0].match(/\b\d{4}/g);  //2015
+				var month = date[0].split('-')[1];   //09
+				var day = date[0].split('-')[2];   //10
+				// this.options.Data[i]
+			}
 		},
 		base64decode:function(str){
 			var base64DecodeChars = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
@@ -171,7 +182,7 @@
 		        out += String.fromCharCode(((c3 & 0x03) << 6) | c4);
 		    }
 		    return out;
-}
+		}
 	};
 	$.fn.timeline = function(options){
 		// options = $.extend({},defaults,options);
