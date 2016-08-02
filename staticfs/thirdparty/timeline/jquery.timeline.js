@@ -6,7 +6,7 @@
 	var BlogTime = function(obj,options){  //默认属性
 		var defaults = {
 			size:'3',  //每栏显示的默认最大篇数
-			layzeHeight:100,  //预加载高度
+			layzeHeight:10,  //预加载高度
 			leftCont:$('.leftnav'),  //时间轴
 			container:$('.content'),
 			template:'<div></div>',
@@ -42,7 +42,7 @@
  				return 'pc';
             }
 		},
-		mouseEvent:function(){
+		mouseEvent:function(){  //鼠标事件
 			//主要是滚动
 			//包括懒加载和侧边栏的滚动
 			var that = this;
@@ -52,7 +52,7 @@
 		},
 		scrollEvent:function(event){
 			//鼠标滚动事件，判断是否开始进行加载，加载栏数、篇数、包括render、事件绑定(去掉)
-			//滚动事件执行函数
+			//事件执行函数
 			var that = this;
 			if($(window).scrollTop()+$(window).height()+this.options.layzeHeight >$(document).height()){  //预100高度加载
 				if(this.options.getblogs){	
@@ -68,23 +68,25 @@
 		loadBlogs:function(callback){
 			//加载博客
 			var that = this;
-			var getArticles;
-			function getArticles(data){  //使用jsonp跨域请求数据，需要在ajax请求的外面定义一个函数名与后台返回函数名相同的函数，以对数据进行处理
-				data = JSON.parse(that.base64decode(data));
+			window.getArticles = function(data){  //使用jsonp跨域请求数据，需要在ajax请求的外面定义一个函数名与后台返回函数名相同的函数，以对数据进行处理
+				// data = JSON.parse(that.base64decode(data));
+				// data = JSON.parse(data);
 				for(var i =0 ;i<data.length;i++){
 					that.blogShows(data[i]);	
 				}
+				// console.log(data);
 			}
 			$.ajax({
 				type:'GET',
 				url:that.options.getblogs,
 				crossDomain: true,
+				// async:false,
 				dataType:'jsonp',
 				jsonpCallback:'getArticles',
 				data:null,
 				contentType: "application/json;utf-8", 
 				success:function(data){
-					getArticles(data);
+					// getArticles(data);
 				},
 				error:function(error){
 					console.log(error);
@@ -127,7 +129,7 @@
 			if(!this.options.Data) this.options.Data ={};  //存放解析后的数据
 			for(var i=0;i<data.length;i++){
 				var _data = data[i];
-			
+
 				var date = _data.updated_at.match(reg);  //2015-09-10
 				var year = date[0].match(/\b\d{4}/g);  //2015
 				var month = date[0].split('-')[1];   //09
