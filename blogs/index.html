@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>BLOG</title>
 	<script type="text/javascript" src="../staticfs/thirdparty/timeline/jquery.min.js"></script>
-	<script type="text/javascript" src="../staticfs/thirdparty/backbone/underscore-1.4.4.js"></script>
+	<!-- <script type="text/javascript" src="../staticfs/thirdparty/backbone/underscore-1.4.4.js"></script> -->
 	<script type="text/javascript" src="../staticfs/thirdparty/timeline/jquery.timeline.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/blogs/index.css">
 </head>
@@ -85,7 +85,7 @@
 	<script type="text/javascript">
 		var options ={
 			template:	$('#dayblog').html(),
-			getblogs:'http://blog.weshow.site/api/articles'
+			getblogs:'http://blog.weshow.site/api/articles'  //http://blog.weshow.site/api/articles?size=1&page=2
 		};
 		$('.blogs').timeline(options).init();
 	</script>

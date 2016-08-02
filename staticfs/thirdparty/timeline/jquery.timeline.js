@@ -12,6 +12,7 @@
 			template:'<div></div>',
 			rightCont:$('.blogs'),  //具体内容展示区
 			// getblogs:  获取文章列表接口
+			iScroll:true   //是否可以执行滚动事件,防止一次滚动多次加载
 		}
 		this.obj = obj;		//当前对象
 		this.options = $.extend({},defaults,options);
@@ -47,7 +48,9 @@
 			//包括懒加载和侧边栏的滚动
 			var that = this;
 			$(window).on('scroll',function(){
-				that.scrollEvent();
+				if(that.options.iScroll){
+					that.scrollEvent();
+				}  
 			})
 		},
 		scrollEvent:function(event){
@@ -56,6 +59,7 @@
 			var that = this;
 			if($(window).scrollTop()+$(window).height()+this.options.layzeHeight >$(document).height()){  //预100高度加载
 				if(this.options.getblogs){	
+					this.options.iScroll = false;
 					this.loadBlogs(); 	//获取文章列表
 				}	
 			}
@@ -68,25 +72,30 @@
 		loadBlogs:function(callback){
 			//加载博客
 			var that = this;
-			window.getArticles = function(data){  //使用jsonp跨域请求数据，需要在ajax请求的外面定义一个函数名与后台返回函数名相同的函数，以对数据进行处理
-				// data = JSON.parse(that.base64decode(data));
-				// data = JSON.parse(data);
-				for(var i =0 ;i<data.length;i++){
-					that.blogShows(data[i]);	
-				}
-				// console.log(data);
-			}
+			// window.getArticles = function(data){  //使用jsonp跨域请求数据，需要在ajax请求的外面定义一个函数名与后台返回函数名相同的函数，以对数据进行处理
+			// 	// data = JSON.parse(that.base64decode(data));
+			// 	// data = JSON.parse(data);
+			// 	for(var i =0 ;i<data.length;i++){
+			// 		that.blogShows(data[i]);	
+			// 	}
+			// 	// console.log(data);
+			// }
+			var page = 1;
 			$.ajax({
 				type:'GET',
-				url:that.options.getblogs,
-				crossDomain: true,
+				url:that.options.getblogs+'?size=3&page='+page,
+				// crossDomain: true,
 				// async:false,
-				dataType:'jsonp',
-				jsonpCallback:'getArticles',
+				// dataType:'jsonp',
+				// jsonpCallback:'getArticles',
 				data:null,
-				contentType: "application/json;utf-8", 
+				// contentType: "application/json;utf-8", 
 				success:function(data){
-					// getArticles(data);
+					data = data.data;
+					for(var i =0 ;i<data.length;i++){
+						that.blogShows(data[i]);	
+					}
+					that.options.iScroll = true;
 				},
 				error:function(error){
 					console.log(error);
@@ -136,54 +145,6 @@
 				var day = date[0].split('-')[2];   //10
 				// this.options.Data[i]
 			}
-		},
-		base64decode:function(str){
-			var base64DecodeChars = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
-		    var c1, c2, c3, c4;
-		    var i, len, out;
-		    len = str.length;
-		    i = 0;
-		    out = "";
-		    while (i < len) {
-		        /* c1 */
-		        do {
-		            c1 = base64DecodeChars[str.charCodeAt(i++) & 0xff];
-		        }
-		        while (i < len && c1 == -1);
-		        if (c1 == -1) 
-		            break;
-		        /* c2 */
-		        do {
-		            c2 = base64DecodeChars[str.charCodeAt(i++) & 0xff];
-		        }
-		        while (i < len && c2 == -1);
-		        if (c2 == -1) 
-		            break;
-		        out += String.fromCharCode((c1 << 2) | ((c2 & 0x30) >> 4));
-		        /* c3 */
-		        do {
-		            c3 = str.charCodeAt(i++) & 0xff;
-		            if (c3 == 61) 
-		                return out;
-		            c3 = base64DecodeChars[c3];
-		        }
-		        while (i < len && c3 == -1);
-		        if (c3 == -1) 
-		            break;
-		        out += String.fromCharCode(((c2 & 0XF) << 4) | ((c3 & 0x3C) >> 2));
-		        /* c4 */
-		        do {
-		            c4 = str.charCodeAt(i++) & 0xff;
-		            if (c4 == 61) 
-		                return out;
-		            c4 = base64DecodeChars[c4];
-		        }
-		        while (i < len && c4 == -1);
-		        if (c4 == -1) 
-		            break;
-		        out += String.fromCharCode(((c3 & 0x03) << 6) | c4);
-		    }
-		    return out;
 		}
 	};
 	$.fn.timeline = function(options){
