@@ -66,3 +66,20 @@
  				return 'pc';
             }
 		},
+		renderTemplate:function(template,data){  //待优化
+			//自定义模版引擎
+			//<%%> 模版的逻辑表达式
+			//<%=%> 输出表达式 同_.underscore里面的值
+			var reg =  /<%=\s*([^%>]+\S)\s*%>/;
+			var match;
+			//匹配不到则为null,循环则停止
+	        while(match = reg.exec(template)){//exec匹配字符串中的正则表达式
+	        	if(data[match[1]]!='undefined'){
+	        		//替换
+		         	template = template.replace(match[0],data[match[1]]);	
+	        	}
+	        	// else {}
+		         
+		      }
+		      return template;//返回渲染值
+		},

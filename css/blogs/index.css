@@ -16,6 +16,39 @@ body {
 .leftnav .time {
   display: none;
 }
+.leftnav .time span {
+  text-align: right;
+  font-size: 16px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  display: inline-block;
+}
+.leftnav .time span:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.leftnav .time li {
+  text-align: right;
+  font-size: 12px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.leftnav .time li:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.leftnav .time li.active {
+  position: relative;
+}
+.leftnav .time li.active:after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background-color: #f09;
+}
 .leftnav .isactive {
   display: block;
 }

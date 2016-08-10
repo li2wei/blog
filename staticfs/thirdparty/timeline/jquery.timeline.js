@@ -12,7 +12,10 @@
 			template:'<div></div>',
 			rightCont:$('.blogs'),  //具体内容展示区
 			// getblogs:  获取文章列表接口
-			iScroll:true   //是否可以执行滚动事件,防止一次滚动多次加载
+			// timeTem:
+			iScroll:true,   //是否可以执行滚动事件,防止一次滚动多次加载
+			iPage:1,
+			iSize:3
 		}
 		this.obj = obj;		//当前对象
 		this.options = $.extend({},defaults,options);
@@ -72,18 +75,10 @@
 		loadBlogs:function(callback){
 			//加载博客
 			var that = this;
-			// window.getArticles = function(data){  //使用jsonp跨域请求数据，需要在ajax请求的外面定义一个函数名与后台返回函数名相同的函数，以对数据进行处理
-			// 	// data = JSON.parse(that.base64decode(data));
-			// 	// data = JSON.parse(data);
-			// 	for(var i =0 ;i<data.length;i++){
-			// 		that.blogShows(data[i]);	
-			// 	}
-			// 	// console.log(data);
-			// }
-			var page = 1;
+			// window.getArticles = function(data){}  //使用jsonp跨域请求数据，需要在ajax请求的外面定义一个函数名与后台返回函数名相同的函数，以对数据进行处理
 			$.ajax({
 				type:'GET',
-				url:that.options.getblogs+'?size=3&page='+page,
+				url:that.options.getblogs+'?size='+ this.options.iSize+'&page='+this.options.iPage,
 				// crossDomain: true,
 				// async:false,
 				// dataType:'jsonp',
@@ -92,64 +87,87 @@
 				// contentType: "application/json;utf-8", 
 				success:function(data){
 					data = data.data;
+					that.parseDate(data);
 					for(var i =0 ;i<data.length;i++){
-						that.blogShows(data[i]);	
+						that.drawBlogs(data[i]);	
 					}
 					that.options.iScroll = true;
+					// that.options.iPage +=1;
 				},
 				error:function(error){
 					console.log(error);
 				}
 			});
 		},
-		renderTemplate:function(template,data){  //待优化
-			//自定义模版引擎
-			//<%%> 模版的逻辑表达式
-			//<%=%> 输出表达式 同_.underscore里面的值
-			var reg =  /<%=\s*([^%>]+\S)\s*%>/;
-			var match;
-			//匹配不到则为null,循环则停止
-	        while(match = reg.exec(template)){//exec匹配字符串中的正则表达式
-	        	if(data[match[1]]!='undefined'){
-	        		//替换
-		         	template = template.replace(match[0],data[match[1]]);	
-	        	}
-	        	// else {}
-		         
-		      }
-		      return template;//返回渲染值
-		},
 		blogsEvent:function(){
 			//每篇博客上的事件绑定
 		},
-		blogShows:function(data){
+		drawBlogs:function(data){
 			//统一的博客展示模版
-			var that = this;
-			var template = this.options.template;
-			var t = that.renderTemplate(template,{thumb:data.thumb,title:data.title,time:data.updated_at,read:data.hits});
-			this.options.container.append(t);
+			var options = this.options ;
+			var template = options.template;
+			_.each(options.Date,function(date){
+				if(date.id == data.id){
+					// var _monthCon = options.container.find("[data-year="+date.year+"]").data()
+					if(options.container.find("[data-year="+date.year+"]").length!=0){
+						var _year = options.container.find("[data-year="+date.year+"]");
+						var _month = _.find(_year,function(Y){
+							return Y.data('month') == date.month;
+						});
+						if(_.isUndefined(_month)){
+							var ol = $("<ol data-month='"+date.month+"data-year="+date.year+"'></ol>");
+							options.container.append(ol);
+						}else var ol = $(_month[0]);
+
+					}else{
+						var ol = $("<ol data-month='"+date.month+"data-year="+date.year+"'></ol>");
+						options.container.append(ol);
+					}
+					var t = _.template(template,{thumb:data.thumb,title:data.title,time:data.updated_at,read:data.hits,month:date.month});
+					ol.append(t);
+				}
+			})
 		},
 		redrawTime:function(){
-			//重绘左侧的时间轴
+			//重绘左侧的时间轴   slideToggle(隐藏切换)
+			var options = this.options ;
+			var timeT = options.timeTem;
+			_.each(options.Date,function(date){
+				if(options.leftCont.find("[data-year="+date.year+"]").length ==0){  //添加年份
+					var t = _.template(timeT,{year:date.year,month:date.month});
+				 	options.leftCont.find('ul:first').append(t);
+				 }else if(options.leftCont.find("[data-year="+date.year+"]").find("[data-month="+date.month+"]").length == 0){  //添加月份
+				 	options.leftCont.find("[data-year="+date.year+"]").find('ul:first').append("<li class='active' data-month = '"+date.month+"'>"+date.month+"月</li>");
+				 }
+			});
 		},
-		parseData:function(data){  //data: 2015-09-10 08:24:44
-			//解析数据,包括年、月、日
+		parseDate:function(data){
+			data = _.map(data,function(_d){  //日期数据
+				return _.pick(_d,['updated_at','id']);
+			});  
+			//解析数据,包括年、月、日   2015-09-10 08:24:44
 			var reg = /\b\d{4}[-]?\d{2}[-]?\d{2}/g;   //获取年月日的正则
-			if(!this.options.Data) this.options.Data ={};  //存放解析后的数据
+			// if(!this.options.Date) this.options.Date =[];  //存放解析后的数据
+			this.options.Date =[];
 			for(var i=0;i<data.length;i++){
-				var _data = data[i];
-
-				var date = _data.updated_at.match(reg);  //2015-09-10
-				var year = date[0].match(/\b\d{4}/g);  //2015
-				var month = date[0].split('-')[1];   //09
-				var day = date[0].split('-')[2];   //10
-				// this.options.Data[i]
+				var date = data[i].updated_at.match(reg);  //2015-09-10
+				var year = Number(date[0].match(/\b\d{4}/g));  //2015
+				var month = Number(date[0].split('-')[1]);   //09
+				var day = Number(date[0].split('-')[2]);   //10
+				this.options.Date.push({
+					id: data[i].id,
+					year: year,
+					month: month,
+					day: day	
+				});
 			}
+			this.redrawTime();
 		}
 	};
 	$.fn.timeline = function(options){
-		// options = $.extend({},defaults,options);
 		var timeline = new BlogTime(this,options);
 		return timeline;
 	}
 })(jQuery);
+
+
