@@ -19,7 +19,6 @@ body{
 	color:#fff;
 	// background:@blogback;
 	.time{
-		display: none;
 		span{
 			text-align: right;
 			font-size: 16px;
@@ -32,6 +31,7 @@ body{
 			}
 		}
 		li{
+			display: none;
 			text-align:right;
 			font-size:12px;
 			padding-top: 5px;
@@ -55,7 +55,9 @@ body{
 		}
 	}
 	.isactive{
-		display: block;
+		li{
+			display: block;
+		}
 	}
 }
 .blogs{
@@ -68,7 +70,7 @@ body{
 	// overflow: scroll;
 	.line{
 		width:@lineR;
-		height:@length;
+		height:100%;
 		background-color: #eee;
 		position:absolute;
 		top:0;
@@ -121,6 +123,7 @@ body{
 			margin-left:@deltawid*2;
 			margin-top:@deltawid*2;
 			position: relative;
+			display: inline-block;
 			.thumb{
 				width:100%;
 				height: 72%;

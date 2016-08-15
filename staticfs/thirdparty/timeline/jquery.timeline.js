@@ -6,7 +6,7 @@
 	var BlogTime = function(obj,options){  //默认属性
 		var defaults = {
 			size:'3',  //每栏显示的默认最大篇数
-			layzeHeight:10,  //预加载高度
+			layzeHeight:100,  //预加载高度
 			leftCont:$('.leftnav'),  //时间轴
 			container:$('.content'),
 			template:'<div></div>',
@@ -24,6 +24,7 @@
 	BlogTime.prototype = {
 		init:function(){
 			this.terminal = this.judgeTerminal();
+			this.loadBlogs();
 			this.mouseEvent();
 		},
 		judgeTerminal:function(){
@@ -51,30 +52,36 @@
 			//包括懒加载和侧边栏的滚动
 			var that = this;
 			$(window).on('scroll',function(){
-				if(that.options.iScroll){
-					that.scrollEvent();
-				}  
+				if(that.options.iScroll){   //加载博客
+					that.scrollEvent();	
+				}
+				console.log(this.time);
 			})
 		},
 		scrollEvent:function(event){
-			//鼠标滚动事件，判断是否开始进行加载，加载栏数、篇数、包括render、事件绑定(去掉)
+			//鼠标滚动事件，判断是否开始进行加载，加载栏数、篇数、包括render   只包括加载 
 			//事件执行函数
 			var that = this;
-			if($(window).scrollTop()+$(window).height()+this.options.layzeHeight >$(document).height()){  //预100高度加载
+			var scrollTop = $(window).scrollTop();   //重排
+			// $('body').css('pointer-events','none');   //pointer-events禁止鼠标事件，可以提高滚动时的性能，达到60fps(每秒60次)？？？？？？
+			//无限加载
+			if(scrollTop+$(window).height()+this.options.layzeHeight >= $(document).height()){  //预100高度加载
+				// console.log("scrollTop:"+$(window).scrollTop(),"windowheight:"+$(window).height(),"left:"+(parseInt($(window).scrollTop())+parseInt($(window).height())),"documentheight:"+$(document).height() );
 				if(this.options.getblogs){	
 					this.options.iScroll = false;
-					this.loadBlogs(); 	//获取文章列表
+					this.loadBlogs();
+					// window.requestAnimationFrame(this.loadBlogs); 	//获取文章列表  requestanimationfram提高性能和精确度，可控度下降
 				}	
 			}
-
 		},
 		monthDetail:function(){
 			//显示当前年／月包含的具体月／日
 			// 监听滚动事件
 		},
-		loadBlogs:function(callback){
+		loadBlogs:function(){
 			//加载博客
 			var that = this;
+			// var url = that.options.getblogs+'?size='+ that.options.iSize+'&page='+that.options.iPage;
 			// window.getArticles = function(data){}  //使用jsonp跨域请求数据，需要在ajax请求的外面定义一个函数名与后台返回函数名相同的函数，以对数据进行处理
 			$.ajax({
 				type:'GET',
@@ -86,13 +93,17 @@
 				data:null,
 				// contentType: "application/json;utf-8", 
 				success:function(data){
-					data = data.data;
-					that.parseDate(data);
-					for(var i =0 ;i<data.length;i++){
-						that.drawBlogs(data[i]);	
+					var _data = data.data;
+					if(_data.length!=0){
+						that.parseDate(_data);
+						for(var i =0 ;i<_data.length;i++){
+							that.drawBlogs(_data[i]);	
+						}
+						that.options.iScroll = true;
+						that.options.iPage +=1;	
+					}else{
+						//提示没有更多了
 					}
-					that.options.iScroll = true;
-					// that.options.iPage +=1;
 				},
 				error:function(error){
 					console.log(error);
@@ -104,29 +115,57 @@
 		},
 		drawBlogs:function(data){
 			//统一的博客展示模版
-			var options = this.options ;
+			var docHeight,ol;
+			var that = this;
+			var options = this.options;
 			var template = options.template;
 			_.each(options.Date,function(date){
 				if(date.id == data.id){
-					// var _monthCon = options.container.find("[data-year="+date.year+"]").data()
+					//添加月份的ol
+					//后续完善
 					if(options.container.find("[data-year="+date.year+"]").length!=0){
 						var _year = options.container.find("[data-year="+date.year+"]");
 						var _month = _.find(_year,function(Y){
-							return Y.data('month') == date.month;
+							return $(Y).data('month') == date.month;
 						});
 						if(_.isUndefined(_month)){
-							var ol = $("<ol data-month='"+date.month+"data-year="+date.year+"'></ol>");
-							options.container.append(ol);
-						}else var ol = $(_month[0]);
-
+							ol = that.addRightBlog(date);
+						}else ol = $(_month);
 					}else{
-						var ol = $("<ol data-month='"+date.month+"data-year="+date.year+"'></ol>");
-						options.container.append(ol);
+						ol = that.addRightBlog(date);
 					}
-					var t = _.template(template,{thumb:data.thumb,title:data.title,time:data.updated_at,read:data.hits,month:date.month});
+					var t = _.template(template,{thumb:data.thumb,title:data.title,time:data.updated_at,read:data.hits,day:date.day});
 					ol.append(t);
 				}
-			})
+			});
+			docHeight = $(document).height();
+			options.rightCont.find(".line").css('height',docHeight+'px');
+		},
+		addRightBlog:function(date){   //添加月博客模块
+			var ol,cicle,_top;
+			var that = this;
+			ol = $("<ol data-month='"+date.month+"' data-year='"+date.year+"'></ol>");
+			this.options.container.append(ol);
+			_top = ol.offset().top;
+			cicle = "<span style='top:"+(_top+50)+"px' data-year='"+date.year+"' data-month='"+date.month+"'><i></i></span>";
+			this.options.rightCont.find('.line').append(cicle);
+			this.time = setInterval(that.circleEvent($(cicle)),1000);
+			return ol;
+		},
+		circleEvent:function(obj){
+			//为原点绑定事件
+			//显示正确的年月时间轴  当某个月到达一点，刷新时间轴
+			var scrollTop = $(window).scrollTop();
+			var offsetTop = $(obj).offset().top;
+			var top2Window = offsetTop - scrollTop;  //距离窗口顶部的距离	
+			if(top2Window <= 100){  //更新时间轴
+				var year = obj.data('year');
+				var month = obj.data('month');
+				var _target = this.options.leftCont.find("li[data-year='"+year+"']");
+				this.options.leftCont.find('li').removeClass('active isactive');
+				_target.addClass("isactive");
+				_target.find("li[data-month='"+month+"']").addClass("active");
+			}	
 		},
 		redrawTime:function(){
 			//重绘左侧的时间轴   slideToggle(隐藏切换)
@@ -137,7 +176,8 @@
 					var t = _.template(timeT,{year:date.year,month:date.month});
 				 	options.leftCont.find('ul:first').append(t);
 				 }else if(options.leftCont.find("[data-year="+date.year+"]").find("[data-month="+date.month+"]").length == 0){  //添加月份
-				 	options.leftCont.find("[data-year="+date.year+"]").find('ul:first').append("<li class='active' data-month = '"+date.month+"'>"+date.month+"月</li>");
+				 	var _month = "<li data-month = '"+date.month+"'>"+date.month+"月</li>";
+				 	options.leftCont.find("[data-year="+date.year+"]").find('ul:first').append(_month);
 				 }
 			});
 		},

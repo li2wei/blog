@@ -13,9 +13,6 @@ body {
   top: 80px;
   color: #fff;
 }
-.leftnav .time {
-  display: none;
-}
 .leftnav .time span {
   text-align: right;
   font-size: 16px;
@@ -28,6 +25,7 @@ body {
   text-decoration: underline;
 }
 .leftnav .time li {
+  display: none;
   text-align: right;
   font-size: 12px;
   padding-top: 5px;
@@ -49,7 +47,7 @@ body {
   height: 100%;
   background-color: #f09;
 }
-.leftnav .isactive {
+.leftnav .isactive li {
   display: block;
 }
 .blogs {
@@ -62,7 +60,7 @@ body {
 }
 .blogs .line {
   width: 2px;
-  height: 1000px;
+  height: 100%;
   background-color: #eee;
   position: absolute;
   top: 0;
@@ -116,6 +114,7 @@ body {
   margin-left: 50px;
   margin-top: 50px;
   position: relative;
+  display: inline-block;
 }
 .blogs .content .dayblog .thumb {
   width: 100%;

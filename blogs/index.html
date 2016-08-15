@@ -32,7 +32,7 @@
 	<div class="blogs">
 	<!-- 主体blog展示时间轴 -->
 		<div class="line">
-			<span><i></i></span>	
+			<!-- <span><i></i></span>	 -->
 		</div>
 		<div class="content">
 			<!-- <div class="dayblog">
@@ -57,7 +57,7 @@
 		<nav></nav>
 	</div>
 	<script type="text/html" id="dayblog">
-		<div class='dayblog' data-month="<%=month%>">
+		<div class='dayblog' data-day="<%=day%>">
 			<%if(thumb){%>
 			<div class='thumb'>
 				<img src=<%=thumb%>
@@ -76,7 +76,7 @@
 	</div>
 	</script>
 	<script type="text/html" id="timeline">
-		<li class="time isactive" data-year = "<%=year%>">
+		<li class="time" data-year = "<%=year%>">
 			<span><%=year%> </span>
 			<ul>
 				<li data-month = "<%=month%>"><%=month%> 月</li>
