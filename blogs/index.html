@@ -9,11 +9,18 @@
 	<link rel="stylesheet" type="text/css" href="../css/blogs/index.css">
 </head>
 <body>
-	<div>
-	<!-- 头部 -->
-		<nav></nav>
-	</div>
-	<div>
+	<header>
+		<nav class="recom_nav">
+			<iframe height='473' scrolling='no' src='//codepen.io/lijiang/embed/preview/mExboR/?height=473&theme-id=dark&default-tab=result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 70%;margin-left:15%;'>See the Pen <a href='http://codepen.io/lijiang/pen/mExboR/'>mExboR</a> by lijiang (<a href='http://codepen.io/lijiang'>@lijiang</a>) on <a href='http://codepen.io'>CodePen</a>.
+			</iframe>
+		</nav>
+
+		<div class="recommand">
+			<h2>今日推荐</h2>
+		</div>
+	</header>
+	<div class="content_wrap">
+		<div class="">
 		<!-- 时间定位 -->
 		<div class="leftnav">
 			<ul>
@@ -51,11 +58,10 @@
 				</div>
 			</div> -->
 		</div>
+	</div>	
 	</div>
-	<div> 
-	<!-- 底部 -->
-		<nav></nav>
-	</div>
+	
+	<footer></footer>
 	<script type="text/html" id="dayblog">
 		<div class='dayblog' data-day="<%=day%>">
 			<%if(thumb){%>

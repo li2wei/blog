@@ -4,14 +4,32 @@
   list-style: none;
 }
 body {
-  background: url(../../img/top.jpg) no-repeat fixed;
-  background-size: cover;
+  background: url(../../img/backgroud.gif) repeat fixed;
+}
+header {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+header .recom_nav {
+  padding-top: 20px;
+  background: rgba(0, 0, 0, 0.3);
+}
+header .recommand {
+  color: #000000;
+  text-align: center;
+  padding: 20px 0;
+}
+.content_wrap {
+  width: 100%;
+  height: auto;
 }
 .leftnav {
   position: fixed;
   left: 15%;
-  top: 80px;
-  color: #fff;
+  top: 600px;
+  color: #000000;
 }
 .leftnav .time span {
   text-align: right;
@@ -55,7 +73,6 @@ body {
   margin: 0 auto;
   min-width: 1000px;
   height: 1000px;
-  border: 1px solid red;
   position: relative;
 }
 .blogs .line {
@@ -107,7 +124,7 @@ body {
   width: 350px;
   height: 450px;
   min-height: 90px;
-  background-color: #ffffff;
+  background-color: #000000;
   border-radius: 5px;
   box-sizing: border-box;
   padding: 10px;
@@ -144,7 +161,7 @@ body {
   position: absolute;
   top: 20px;
   left: -25px;
-  border-right: 25px solid #ffffff;
+  border-right: 25px solid #000000;
   border-top: 22.72727273px solid transparent;
   border-bottom: 22.72727273px solid transparent;
 }

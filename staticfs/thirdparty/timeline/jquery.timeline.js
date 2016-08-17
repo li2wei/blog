@@ -6,7 +6,7 @@
 	var BlogTime = function(obj,options){  //默认属性
 		var defaults = {
 			size:'3',  //每栏显示的默认最大篇数
-			layzeHeight:100,  //预加载高度
+			layzeHeight:200,  //预加载高度
 			leftCont:$('.leftnav'),  //时间轴
 			container:$('.content'),
 			template:'<div></div>',
