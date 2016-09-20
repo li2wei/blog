@@ -76,11 +76,15 @@
     if (obj == null) return;
     if (nativeForEach && obj.forEach === nativeForEach) {
       obj.forEach(iterator, context);
-    } else if (obj.length === +obj.length) {
+    } else if (obj.length === +obj.length) { 
+      //整个判断条件： obj.length === 'number' && !isNaN(obj.length)
+      // +obj.length 是把obj.length转化成数字
+      //当不考虑NaN的情况下 typeof的性能高，当考虑NaN的情况下，＋性能高
+      //这个if条件是用来判断数组、字符串、函数类型的数据，有length属性的
       for (var i = 0, l = obj.length; i < l; i++) {
         if (iterator.call(context, obj[i], i, obj) === breaker) return;
       }
-    } else {
+    } else {   // 针对非数组、字符串、函数类型的数据进行的object数据类型的遍历
       for (var key in obj) {
         if (_.has(obj, key)) {
           if (iterator.call(context, obj[key], key, obj) === breaker) return;

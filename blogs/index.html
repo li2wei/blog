@@ -6,62 +6,107 @@
 	<script type="text/javascript" src="../staticfs/thirdparty/timeline/jquery.min.js"></script>
 	<script type="text/javascript" src="../staticfs/thirdparty/backbone/underscore-1.4.4.js"></script>
 	<script type="text/javascript" src="../staticfs/thirdparty/timeline/jquery.timeline.js"></script>
+	<script type="text/javascript" src="../staticfs/blogs/main.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/blogs/index.css">
+	<link rel="stylesheet" type="text/css" href="../css/icon/font-awesome.min.css">
 </head>
 <body>
-	<header>
-		<nav class="recom_nav">
-			<iframe height='473' scrolling='no' src='//codepen.io/lijiang/embed/preview/mExboR/?height=473&theme-id=dark&default-tab=result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 70%;margin-left:15%;'>See the Pen <a href='http://codepen.io/lijiang/pen/mExboR/'>mExboR</a> by lijiang (<a href='http://codepen.io/lijiang'>@lijiang</a>) on <a href='http://codepen.io'>CodePen</a>.
-			</iframe>
-		</nav>
-
-		<div class="recommand">
-			<h2>今日推荐</h2>
+	<div class="leftpanelwarp">
+		<div class="leftpanel">
+			<!-- <p>这是左侧介绍</p> -->
+			<div class="portrait">
+				<div>这是一个博客这是一个博客</div>
+			</div>
+			<div class="tabs">
+				<ul>
+					<li>最新动态</li>
+					<li>最新评论</li>
+					<li>最热文章</li>
+				</ul>
+			</div>
+			<div class="settings">
+				<i></i>
+			</div>
 		</div>
-	</header>
-	<div class="content_wrap">
-		<div class="">
-		<!-- 时间定位 -->
-		<div class="leftnav">
-			<ul>
-				<!-- <li class="time isactive" data-time = 'now'>
-					<span>现在</span>
+	</div>
+	<div class="rightcontentwrap">
+		<div class="rightcontent">
+			<!-- <div class="content_wrap"> -->
+				<!-- 时间定位 -->
+				<!-- <div class="leftnav">
 					<ul>
-						<li>1号</li>
-						<li>2号</li>
-						<li>3号</li>
-						<li>4号</li>
+						<li class="time isactive" data-time = 'now'>
+							<span>现在</span>
+							<ul>
+								<li>1号</li>
+								<li>2号</li>
+								<li>3号</li>
+								<li>4号</li>
+							</ul>
+						</li>
 					</ul>
-				</li> -->
-			</ul>
+				</div> -->
+			<!-- </div> -->
+			<div class="blogs">
+			<!-- 主体blog展示时间轴 -->
+				<div class="line">
+					<span><i></i></span>	
+				</div>
+				<div class="content">
+					<div class="article">
+						<!-- <div class="thumb">
+							<img src="../img/top.jpg">
+						</div>
+						<div class="info">
+							<div class="left">
+								<p>这是博客介绍</p>
+								<span>26/05:45</span>	
+							</div>
+							<div class="right">
+								<p>阅读量:<span>30</span></p>
+								<i>点赞</i>
+							</div>
+						</div> -->
+						<p class="title">
+							<a>圣杯布局、双飞翼布局<i class="fa fa-chevron-circle-right right"> demo</i></a>
+						</p>
+						<div class="actions">
+								<span><i class="fa fa-tags"></i>前端</span> 
+								<span><i class="fa fa-calendar"></i>  2015/08/09</span>
+								<a class="btn btn-default" href="#"><i class="fa fa-eye " aria-hidden="true"></i> 阅读量 123</a>
+								<a class="btn btn-default" href="#"><i class="fa fa-heart-o " aria-hidden="true"></i> 鼓励一下</a>
+						</div>
+						<div class="detail">
+							<article class="">
+							同时设置relative: 先浮动然后根据top/bottom/left/right改变位置偏移
+							同时设置absolute：float无效
+							同时设置absolute：会导致清除浮动无效，relative可以
+							两个不同的元素分别设置了float和absolute时，如果位置有重叠，则absolute元素在上方。解决方式：float的position设置成relative
+							同时设置relative: 先浮动然后根据top/bottom/left/right改变位置偏移
+							同时设置absolute：float无效
+							同时设置absolute：会导致清除浮动无效，relative可以
+							两个不同的元素分别设置了float和absolute时，如果位置有重叠，则absolute元素在上方。解决方式：float的position设置成relative
+							</article>
+						</div>
+						<div class="demo">
+							<!-- <p style="margin-top:-20px;margin-right:100px;" data-height="321" data-theme-id="dark" data-slug-hash="yeRmMw" data-default-tab="result" data-user="samirc" data-embed-version="2" class="codepen">See the Pen <a href="http://codepen.io/samirc/pen/yeRmMw/">JetFalcon Logo Animation SVG & CSS</a> by Samir Chahine (<a href="http://codepen.io/samirc">@samirc</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+							<script async src="//assets.codepen.io/assets/embed/ei.js"></script> -->
+						</div>
+					</div>
+					<div class="article">
+						
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
-	<div class="blogs">
-	<!-- 主体blog展示时间轴 -->
-		<div class="line">
-			<!-- <span><i></i></span>	 -->
-		</div>
-		<div class="content">
-			<!-- <div class="dayblog">
-				<div class="thumb">
-					<img src="../img/top.jpg">
-				</div>
-				<div class="info">
-					<div class="left">
-						<p>这是博客介绍</p>
-						<span>26/05:45</span>	
-					</div>
-					<div class="right">
-						<p>阅读量:<span>30</span></p>
-						<i>点赞</i>
-					</div>
-				</div>
-			</div> -->
-		</div>
-	</div>	
+	<div class="floatline"> 
+	<!-- 时间轴 -->
+		<a class="btn btn-default"><i class="fa fa-info-circle"></i></a>
 	</div>
+
 	
-	<footer></footer>
 	<script type="text/html" id="dayblog">
 		<div class='dayblog' data-day="<%=day%>">
 			<%if(thumb){%>
@@ -90,12 +135,15 @@
 		</li>
 	</script>
 	<script type="text/javascript">
-		var options ={
-			template:	$('#dayblog').html(),
-			timeTem: $('#timeline').html(),
-			getblogs:'http://blog.weshow.site/api/articles'  //http://blog.weshow.site/api/articles?size=1&page=2
-		};
-		$('.blogs').timeline(options).init();
+	window.onload =function(){
+	
+	}
+		// var options ={
+		// 	template:	$('#dayblog').html(),
+		// 	timeTem: $('#timeline').html(),
+		// 	getblogs:'http://blog.weshow.site/api/articles'  //http://blog.weshow.site/api/articles?size=1&page=2
+		// };
+		// $('.blogs').timeline(options).init();
 	</script>
 </body>
 </html>

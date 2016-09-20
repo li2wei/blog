@@ -11,6 +11,7 @@
 			container:$('.content'),
 			template:'<div></div>',
 			rightCont:$('.blogs'),  //具体内容展示区
+			topbar:473,
 			// getblogs:  获取文章列表接口
 			// timeTem:
 			iScroll:true,   //是否可以执行滚动事件,防止一次滚动多次加载
@@ -52,6 +53,7 @@
 			//包括懒加载和侧边栏的滚动
 			var that = this;
 			$(window).on('scroll',function(){
+				var  scrollTop = $(window).scrollTop();  
 				if(that.options.iScroll){   //加载博客
 					that.scrollEvent();	
 				}
@@ -65,7 +67,7 @@
 			var scrollTop = $(window).scrollTop();   //重排
 			// $('body').css('pointer-events','none');   //pointer-events禁止鼠标事件，可以提高滚动时的性能，达到60fps(每秒60次)？？？？？？
 			//无限加载
-			if(scrollTop+$(window).height()+this.options.layzeHeight >= $(document).height()){  //预100高度加载
+			if(scrollTop+$(window).height()+this.options.layzeHeight + this.options.topbar>= $(document).height()){  //预100高度加载
 				// console.log("scrollTop:"+$(window).scrollTop(),"windowheight:"+$(window).height(),"left:"+(parseInt($(window).scrollTop())+parseInt($(window).height())),"documentheight:"+$(document).height() );
 				if(this.options.getblogs){	
 					this.options.iScroll = false;

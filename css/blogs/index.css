@@ -6,20 +6,169 @@
 body {
   background: url(../../img/backgroud.gif) repeat fixed;
 }
-header {
+a {
+  color: #000;
+  text-decoration: none;
+}
+.leftpanelwarp {
+  color: #fff;
+  font-size: 14px;
+}
+.leftpanelwarp:after {
+  display: block;
+  clear: both;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  content: ".";
+}
+.leftpanelwarp .leftpanel {
+  width: 250px;
+  position: fixed;
+  float: left;
+  margin-right: -250px;
+  background: #202020;
+  height: 100%;
+}
+.rightcontentwrap {
+  width: 100%;
+  float: right;
+}
+.rightcontentwrap:after {
+  display: block;
+  clear: both;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  content: ".";
+}
+.rightcontentwrap .rightcontent {
+  margin-left: 300px;
+}
+.blogs {
+  width: 100%;
+  min-width: 250px;
+  height: auto;
+  margin-top: 50px;
+  position: relative;
+}
+.blogs .line {
+  width: 2px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 0;
+  left: -2px;
+  box-shadow: 0 0 2px 0 #ccc;
+  -webkit-box-shadow: 0 0 2px 0 #ccc;
+  -moz-box-shadow: 0 0 2px 0 #ccc;
+  -ms-box-shadow: 0 0 2px 0 #ccc;
+  -o-box-shadow: 0 0 2px 0 #ccc;
+}
+.blogs .line span {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  left: -9px;
+  top: 0;
+  background-color: #ccc;
+  box-shadow: 0 0 1px 1px #ccc inset;
+  -webkit-box-shadow: 0 0 1px 1px #ccc inset;
+  -moz-box-shadow: 0 0 1px 1px #ccc inset;
+  -ms-box-shadow: 0 0 1px 1px #ccc inset;
+  -o-box-shadow: 0 0 1px 1px #ccc inset;
+}
+.blogs .line span i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  background-color: #f45;
+  box-shadow: 0 0 1px 1px #f55 ;
+  -webkit-box-shadow: 0 0 1px 1px #f55 ;
+  -moz-box-shadow: 0 0 1px 1px #f55 ;
+  -ms-box-shadow: 0 0 1px 1px #f55 ;
+  -o-box-shadow: 0 0 1px 1px #f55 ;
+}
+.blogs .content {
   width: 100%;
   height: auto;
-  box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.6);
+  overflow: scroll;
 }
-header .recom_nav {
-  padding-top: 20px;
-  background: rgba(0, 0, 0, 0.3);
+.blogs .content .article {
+  height: auto;
+  min-height: 200px;
+  margin: 0 40px 30px;
+  padding: 0 10px 20px;
 }
-header .recommand {
-  color: #000000;
-  text-align: center;
-  padding: 20px 0;
+.blogs .content .article .title {
+  width: 45%;
+  margin-bottom: 10px;
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #202020;
+}
+.blogs .content .article .title a {
+  display: block;
+  line-height: 1.4;
+}
+.blogs .content .article .title i {
+  font-size: 14px;
+}
+.blogs .content .article .detail {
+  width: 45%;
+  line-height: 1.5;
+  font-size: 16px;
+  display: inline-block;
+}
+.blogs .content .article .detail article {
+  text-indent: 2em;
+}
+.blogs .content .article .actions {
+  width: 45%;
+  height: 20px;
+  font-size: 13px;
+  text-align: left;
+}
+.blogs .content .article .actions a {
+  margin-right: 10px;
+}
+.blogs .content .article .actions span {
+  margin-right: 10px;
+}
+.blogs .content .article .right {
+  float: right;
+}
+.blogs .content .article:after {
+  clear: both;
+}
+.blogs .content .demo {
+  float: right;
+  width: 50%;
+}
+.blogs .content .demo div {
+  margin-top: -39px;
+  margin-right: 100px;
+}
+.floatline {
+  width: 500px;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  right: 20px;
+  background-color: #ccc;
+}
+.floatline i {
+  font-size: 20px;
+  color: #fff;
+  width: 20px;
+  height: 20px;
 }
 .content_wrap {
   width: 100%;
@@ -29,7 +178,7 @@ header .recommand {
   position: fixed;
   left: 15%;
   top: 600px;
-  color: #000000;
+  color: #666666;
 }
 .leftnav .time span {
   text-align: right;
@@ -67,101 +216,4 @@ header .recommand {
 }
 .leftnav .isactive li {
   display: block;
-}
-.blogs {
-  width: 1000px;
-  margin: 0 auto;
-  min-width: 1000px;
-  height: 1000px;
-  position: relative;
-}
-.blogs .line {
-  width: 2px;
-  height: 100%;
-  background-color: #eee;
-  position: absolute;
-  top: 0;
-  left: -2px;
-  box-shadow: 0 0 2px 0 #eee;
-  -webkit-box-shadow: 0 0 2px 0 #eee;
-  -moz-box-shadow: 0 0 2px 0 #eee;
-  -ms-box-shadow: 0 0 2px 0 #eee;
-  -o-box-shadow: 0 0 2px 0 #eee;
-}
-.blogs .line span {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  position: absolute;
-  left: -9px;
-  top: 80px;
-  background-color: #ccc;
-  box-shadow: 0 0 1px 1px #ccc inset;
-  -webkit-box-shadow: 0 0 1px 1px #ccc inset;
-  -moz-box-shadow: 0 0 1px 1px #ccc inset;
-  -ms-box-shadow: 0 0 1px 1px #ccc inset;
-  -o-box-shadow: 0 0 1px 1px #ccc inset;
-}
-.blogs .line span i {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  position: absolute;
-  left: 5px;
-  top: 5px;
-  background-color: #aaa;
-  box-shadow: 0 0 1px 1px #ccc ;
-  -webkit-box-shadow: 0 0 1px 1px #ccc ;
-  -moz-box-shadow: 0 0 1px 1px #ccc ;
-  -ms-box-shadow: 0 0 1px 1px #ccc ;
-  -o-box-shadow: 0 0 1px 1px #ccc ;
-}
-.blogs .content {
-  height: auto;
-  overflow: scroll;
-}
-.blogs .content .dayblog {
-  width: 350px;
-  height: 450px;
-  min-height: 90px;
-  background-color: #000000;
-  border-radius: 5px;
-  box-sizing: border-box;
-  padding: 10px;
-  margin-left: 50px;
-  margin-top: 50px;
-  position: relative;
-  display: inline-block;
-}
-.blogs .content .dayblog .thumb {
-  width: 100%;
-  height: 72%;
-}
-.blogs .content .dayblog .thumb img {
-  width: 100%;
-  height: 100%;
-}
-.blogs .content .dayblog .info {
-  padding: 10px;
-  margin-top: 10px;
-}
-.blogs .content .dayblog .info .left {
-  float: left;
-}
-.blogs .content .dayblog .info .right {
-  float: right;
-}
-.blogs .content .dayblog .info:after {
-  clear: both;
-}
-.blogs .content .dayblog:before {
-  width: 0;
-  height: 0;
-  content: '';
-  position: absolute;
-  top: 20px;
-  left: -25px;
-  border-right: 25px solid #000000;
-  border-top: 22.72727273px solid transparent;
-  border-bottom: 22.72727273px solid transparent;
 }
